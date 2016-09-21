@@ -11,7 +11,7 @@ import CoreData
 import CoreDataStack
 
 @objc(Author)
-class Author: NSManagedObject, CoreDataModelable {
+class Author: NSManagedObject {
 
     @NSManaged var firstName: String?
     @NSManaged var lastName: String?

@@ -11,7 +11,7 @@ import CoreData
 import CoreDataStack
 
 @objc(Book)
-class Book: NSManagedObject, CoreDataModelable {
+class Book: NSManagedObject {
 
     @NSManaged var title: String?
     @NSManaged var authors: Set<Author>
