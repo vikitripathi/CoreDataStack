@@ -47,7 +47,7 @@ class SaveTests : TempDirectoryTestCase {
         // Insert Records
         worker.performAndWait { () -> Void in
             for i in 1...5 {
-                let author = Author(context: worker)
+                let author = Author(managedObjectContext: worker)
                 author.firstName = "Jim \(i)"
                 author.lastName = "Jones \(i)"
             }
@@ -98,7 +98,7 @@ class SaveTests : TempDirectoryTestCase {
         // Insert Records
         worker.performAndWait { () -> Void in
             for i in 1...5 {
-                let author = Author(context: worker)
+                let author = Author(managedObjectContext: worker)
                 author.firstName = "Jim \(i)"
                 author.lastName = "Jones \(i)"
             }
@@ -137,7 +137,7 @@ class SaveTests : TempDirectoryTestCase {
         expectation(forNotification: Notification.Name.NSManagedObjectContextDidSave.rawValue, object: coreDataStack.privateQueueContext, handler: nil)
         bgMoc.performAndWait { () -> Void in
             for i in 1...5 {
-                let author = Author(context: bgMoc)
+                let author = Author(managedObjectContext: bgMoc)
                 author.firstName = "Jim \(i)"
                 author.lastName = "Jones \(i)"
             }
@@ -173,7 +173,7 @@ class SaveTests : TempDirectoryTestCase {
             let bgMoc = self.coreDataStack.newChildContext()
             bgMoc.performAndWait { _ in
                 for i in 1...5 {
-                    let author = Author(context: bgMoc)
+                    let author = Author(managedObjectContext: bgMoc)
                     author.firstName = "Jim \(i)"
                     author.lastName = "Jones \(i)"
                 }
