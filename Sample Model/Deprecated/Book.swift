@@ -28,8 +28,10 @@ class Book: NSManagedObject {
 
         return initial
     }
+}
 
-    // MARK: - CoreDataModelable
-
-    static let entityName = "Book"
+extension Book: CoreDataModelable {
+    static var entityName: String {
+        return "Book"
+    }
 }
