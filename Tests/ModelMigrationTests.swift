@@ -13,7 +13,7 @@ import CoreData
 @testable import CoreDataStack
 
 class ModelMigrationTests: TempDirectoryTestCase {
-    
+
     func testVersionMigration() throws {
         weak var ex1 = expectation(description: "Setup Expectation")
         CoreDataStack.constructSQLiteStack(modelName: "Sample", in: unitTestBundle, at: tempStoreURL) { result in

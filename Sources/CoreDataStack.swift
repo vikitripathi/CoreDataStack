@@ -97,7 +97,8 @@ public final class CoreDataStack {
      - parameter in: NSBundle that contains the `XCDataModel`. Default value is mainBundle()
      - parameter at: Optional URL to use for storing the `SQLite` file. Defaults to "(modelName).sqlite" in the Documents directory.
      - parameter on: Optional GCD queue that will be used to dispatch your callback closure. Defaults to background queue used to create the stack.
-     - parameter callback: The `SQLite` persistent store coordinator will be setup asynchronously. This callback will be passed either an initialized `CoreDataStack` object or an `ErrorType` value.
+     - parameter callback: The `SQLite` persistent store coordinator will be setup asynchronously.
+                            This callback will be passed either an initialized `CoreDataStack` object or an `ErrorType` value.
      */
     public static func constructSQLiteStack(modelName: String,
                                             in bundle: Bundle = Bundle.main,
@@ -203,7 +204,7 @@ public final class CoreDataStack {
 }
 
 public extension CoreDataStack {
-    // TODO: rcedwards These will be replaced with Box/Either or something native to Swift (fingers crossed) https://github.com/bignerdranch/CoreDataStack/issues/10
+    // These will be replaced with Box/Either or something native to Swift (fingers crossed) https://github.com/bignerdranch/CoreDataStack/issues/10
 
     // MARK: - Operation Result Types
 

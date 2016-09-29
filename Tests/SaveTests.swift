@@ -6,21 +6,23 @@
 //  Copyright © 2015 Big Nerd Ranch. All rights reserved.
 //
 
+// swiftlint:disable force_try
+
 import Foundation
 import CoreData
 import XCTest
 
 @testable import CoreDataStack
 
-class SaveTests : TempDirectoryTestCase {
-    
+class SaveTests: TempDirectoryTestCase {
+
     var coreDataStack: CoreDataStack!
-    
+
     override func setUp() {
         super.setUp()
         createStack()
     }
-    
+
     override func tearDown() {
         coreDataStack = nil
         super.tearDown()
@@ -160,13 +162,13 @@ class SaveTests : TempDirectoryTestCase {
         // assert that we still have the same number of authors
         XCTAssertEqual(newFRC.fetchedObjects?.count, 5)
     }
-    
+
     private func authorsFetchedResultsController() -> NSFetchedResultsController<Author> {
         let fetchRequest = NSFetchRequest<Author>(entityName: "Author")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastName", ascending: true)]
         return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.mainQueueContext, sectionNameKeyPath: nil, cacheName: nil)
     }
-    
+
     func testBackgroundSaveAsync() {
         expectation(forNotification: Notification.Name.NSManagedObjectContextDidSave.rawValue, object: coreDataStack.mainQueueContext, handler: nil)
         DispatchQueue.global(qos: .background).async { () -> Void in
@@ -182,7 +184,7 @@ class SaveTests : TempDirectoryTestCase {
         }
         waitForExpectations(timeout: 2, handler: nil)
     }
-    
+
     private func createStack() {
         weak var setupExpectation = expectation(description: "stack setup")
         CoreDataStack.constructSQLiteStack(modelName: "Sample", in: unitTestBundle, at: self.tempStoreURL) { (setupResult) -> Void in
@@ -197,16 +199,17 @@ class SaveTests : TempDirectoryTestCase {
     }
 }
 
-class EmptyFRCDelegate : NSObject, NSFetchedResultsControllerDelegate {
+class EmptyFRCDelegate: NSObject, NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         // nothing
     }
-    
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         // nothing
     }
-    
-    private func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+
+    private func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject,
+        at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         // nothing
     }
 }

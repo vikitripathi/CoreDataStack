@@ -6,6 +6,8 @@
 //  Copyright © 2015 Big Nerd Ranch. All rights reserved.
 //
 
+// swiftlint:disable force_try
+
 import XCTest
 
 import CoreData
@@ -65,7 +67,7 @@ class StoreTeardownTests: TempDirectoryTestCase {
                     }
                 }
                 try! worker.saveContextAndWait()
-                
+
             case .failure(let error):
                 self.failingOn(error)
             }

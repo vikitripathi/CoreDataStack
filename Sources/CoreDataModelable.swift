@@ -77,7 +77,7 @@ extension CoreDataModelable where Self: NSManagedObject {
 
     - parameter context: `NSManagedObjectContext` to find the entities within.
     - parameter predicate: An optional `NSPredicate` for filtering
-    
+
     - throws: Any error produced from `executeFetchRequest`
 
     - returns: `Self?`: The first entity that matches the optional predicate or `nil`.
@@ -108,17 +108,17 @@ extension CoreDataModelable where Self: NSManagedObject {
         fetchRequest.predicate = predicate
         return try context.fetch(fetchRequest)
     }
-    
+
     // MARK: - Counting Objects
-    
+
     /**
      Returns count of Entities that matches the optional predicate within the specified `NSManagedObjectContext`.
-     
+
      - parameter context: `NSManagedObjectContext` to count the entities within.
      - parameter predicate: An optional `NSPredicate` for filtering
-     
+
      - throws: Any error produced from `countForFetchRequest`
-     
+
      - returns: `Int`: Count of entities that matches the optional predicate.
      */
     static public func countInContext(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil) throws -> Int {
@@ -134,7 +134,7 @@ extension CoreDataModelable where Self: NSManagedObject {
     Removes all entities from within the specified `NSManagedObjectContext`.
 
     - parameter context: `NSManagedObjectContext` to remove the entities from.
-    
+
     - throws: Any error produced from `executeFetchRequest`
     */
     static public func removeAllInContext(_ context: NSManagedObjectContext) throws {
@@ -159,9 +159,9 @@ extension CoreDataModelable where Self: NSManagedObject {
     // MARK: Private Funcs
 
     static private func removeAllObjectsReturnedByRequest(_ fetchRequest: NSFetchRequest<Self>, inContext context: NSManagedObjectContext) throws {
-        // TODO: rcedwards A batch delete would be more efficient here on iOS 9 and up 
-        //                  however it complicates things since the request requires a context with
-        //                  an NSPersistentStoreCoordinator directly connected. (MOC cannot be a child of another MOC)
+        // A batch delete would be more efficient here on iOS 9 and up
+        //  however it complicates things since the request requires a context with
+        //  an NSPersistentStoreCoordinator directly connected. (MOC cannot be a child of another MOC)
         fetchRequest.includesPropertyValues = false
         fetchRequest.includesSubentities = false
         try context.fetch(fetchRequest).lazy.forEach(context.delete(_:))
