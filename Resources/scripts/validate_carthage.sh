@@ -26,7 +26,7 @@ clone_project() {
 
 bootstrap() {
   echo "=================Bootstrapping Carthage================="
-  carthage bootstrap --configuration Debug
+  carthage bootstrap --configuration Debug --verbose --toolchain "com.apple.dt.toolchain.Swift_3_0"
   EXIT_CODE=$?
 }
 
